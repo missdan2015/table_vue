@@ -1,0 +1,41 @@
+.option table, .tbody table{
+    border:1px solid black;
+    background-color: #f0f0f0;
+    min-width:800px;
+   
+}
+.option table tr td{
+    border:none;
+}
+.option a{
+    text-decoration: none;
+    border-radius: 2px;
+    color:black;
+    /* margin-right:20px; */
+}
+.option a img{
+    height:15px;
+    margin-right:5px;
+} 
+.option a:hover{
+    background-color:#e1f0ff;
+    border:1px solid cornflowerblue;
+}
+.tbody table{
+    border-top:0px;
+    border-collapse:collapse; /*边框会合并为一个单一的边框。会忽略 border-spacing 和 empty-cells 属性。*/
+}
+.tbody table tbody{
+   background-color: white;
+}
+.tbody table th, .tbody table td {
+    border:1px solid black; 
+    text-align: center;
+}
+.tbody table tr:hover{
+    background-color: aliceblue;
+}
+.searchStyle{
+    background-color: bisque;
+}
+    

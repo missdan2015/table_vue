@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MiniTable</title>
+    <link rel="stylesheet" href="main.css">
+    <script src='vue.min.js'></script>
+</head>
+<body>
+    <div id="table">
+        <h2>{{tableName}}</h2>
+        <div class="main">
+            <div class="option">
+                <table>
+                    <tr>
+                        <td @click='addTr()'>
+                            <a><img src='images/add.png'>增加</a>
+                        </td>
+                        <td @click='deleteTr()'>
+                            <a><img src='images/delete.png'>删除</a>
+                        </td>
+                        <td><a><img src='images/save.png' >保存</a></td>
+                        <td style='white-space:nowrap'>
+                            <input type="text" list='search' id='searchName' placeholder="查找" @input='searchTr(event)'>
+                            <datalist id='search'>
+                                <option v-for='item in searchList' :value='item'></option>
+                            </datalist>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tbody">       
+                <table >
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th><input type="checkbox" @click='selectAll(event)'>全选/全不先选</th>
+                            <th>员工账号</th>
+                            <th>年龄</th>
+                            <th>性别</th>
+                            <th>出生日期</th>
+                            <th>备注</th>
+                            <th>国家</th>
+                            <th>婚否</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(person,index) in filterPeople" :key="person.name" class='person'>
+                            <td>{{++index}}</td>
+                            <td><input type="checkbox" class='tr' v-model="person.checked"></td>
+                            <td @click='editItem(index, 1)'>
+                                <label v-show='index!==editingIndex || colIndex!==1'>{{person.name}}</label>
+                                <input type='text' v-show='index==editingIndex && colIndex==1' v-model='person.name'
+                                @blur='saveItem()' @keyup.esc='saveItem()'>
+                            </td>
+                            <td @click='editItem(index,2)'>
+                                <label v-show='index!==editingIndex || colIndex!==2'>{{person.age}}</label>
+                                <input type="number" min='0' v-show='index==editingIndex && colIndex==2' v-model='person.age'
+                                 @blur='saveItem()' @keyup.esc='saveItem()'>
+                            </td>
+                            <td @click='editItem(index, 3)'>
+                                <label v-show='index!==editingIndex || colIndex!==3'>{{person.sex}}</label>
+                                <select v-show='index==editingIndex && colIndex==3' v-model='person.sex'
+                                 @blur='saveItem()' @keyup.esc='saveItem()'>
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+                            </td>
+                            <td @click='editItem(index,4)'>
+                                <label v-show='index!==editingIndex || colIndex!==4'>{{person.birth}}</label>
+                                <input type="date" v-show='index==editingIndex && colIndex==4' v-model='person.birth'
+                                @blur='saveItem()' @keyup.esc='saveItem()'>
+                            </td>
+                            <td @click='editItem(index,5)'>
+                               <label v-show='index!==editingIndex || colIndex!==5'>{{person.ps}}</label>
+                               <textarea v-show='index==editingIndex && colIndex==5' v-model='person.ps' 
+                               @blur='saveItem()' @keyup.esc='saveItem()'></textarea>
+                            </td>
+                            <td @click='editItem(index,6)'>
+                                <label v-show='index!==editingIndex || colIndex!==6'>{{person.country}}</label>
+                                <select v-show='index==editingIndex  && colIndex==6' v-model='person.country'
+                                 @blur='saveItem()' @keyup.esc='saveItem()'>
+                                    <option  v-for='countryItem in countries'>{{countryItem.text}}</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" id='married'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+            <p style='color:red;size:larger'>{{description}}</p>
+            <hr>
+            <ul id='description'>
+                <li v-for='item in desList' :key='item.id'>
+                    {{item.desText}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src='app.js'></script>    
+</body>
+</html>
